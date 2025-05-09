@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salsa Step Generator</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #main-display {
+            font-size: 5em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            text-align: center;
+        }
+
+        .corner-display {
+            position: fixed;
+            font-size: 1.5em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            transition: all 0.5s ease;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        #top-left {
+            top: 20px;
+            left: 20px;
+            transform: rotate(-5deg);
+        }
+
+        #top-right {
+            top: 20px;
+            right: 20px;
+            transform: rotate(5deg);
+        }
+
+        #bottom-center {
+            bottom: 40px;
+            font-size: 2.2em;
+            width: 80%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            background: #FFE66D;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #FFD700;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <button onclick="startAutoRefresh()">✨ Start Salsa Magic! ✨</button>
+    <div id="main-display"></div>
+    
+    <div class="corner-display" id="top-left"></div>
+    <div class="corner-display" id="top-right"></div>
+    <div class="corner-display" id="bottom-center"></div>
+
+    <script>
+        let autoRefreshInterval = null;
+
+        function fetchValue() {
+            fetch('/get_random_value')
+                .then(response => response.json())
+                .then(data => {
+                    // Update main display
+                    document.getElementById('main-display').textContent = `${data.valores}`;
+                    document.getElementById('main-display').style.opacity = 1;
+
+                    // Update corner displays
+                    document.getElementById('top-left').textContent = `Difficulty: ${data.difficulty}`;
+                    document.getElementById('top-right').textContent = `Style: ${data.type}`;
+                    document.getElementById('bottom-center').textContent = `Count: ${data.count}`;
+
+                    // Fade in all elements
+                    document.querySelectorAll('.corner-display, #main-display').forEach(el => {
+                        el.style.opacity = 1;
+                    });
+
+                    // Hide after 9 seconds
+                    setTimeout(() => {
+                        document.querySelectorAll('.corner-display, #main-display').forEach(el => {
+                            el.style.opacity = 0;
+                        });
+                    }, 9000);
+                });
+        }
+
+        function startAutoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+            }
+            fetchValue();
+            autoRefreshInterval = setInterval(fetchValue, 10000);
+        }
+    </script>
+</body>
+</html>

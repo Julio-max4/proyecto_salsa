@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salsa Step Generator</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #main-display {
+            font-size: 5em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            text-align: center;
+        }
+
+        .corner-display {
+            position: fixed;
+            font-size: 1.7em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            padding: 15px;
+            background: rgba(194, 68, 68, 0.2);
+            border-radius: 15px;
+            transition: all 0.5s ease;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        #top-left {
+            top: 20px;
+            left: 20px;
+            transform: rotate(0deg);
+        }
+
+        #top-right {
+            top: 20px;
+            right: 20px;
+            transform: rotate(0deg);
+        }
+
+        #bottom-center {
+            bottom: 140px;
+            font-size: 2.4em;
+            width: 70%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            background: #FFE66D;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #FFD700;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #video-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 220px;
+            height: 400px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 15px;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        #step-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            display: none;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="startAutoRefresh()">✨ ¡Paso suelto! ✨</button>
+    <button onclick="startAutoRefresh_2()">✨ ¡Combinación de Pasos! ✨</button>
+
+    <div id="main-display"></div>
+    
+    <!-- Video Container -->
+    <div id="video-container">
+        <video id="step-video" controls loop>
+            <source id="video-source" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="corner-display" id="top-left"></div>
+    <div class="corner-display" id="top-right"></div>
+    <div class="corner-display" id="bottom-center"></div>
+
+    <script>
+        let autoRefreshInterval = null;
+        let segundos = 60000;
+        let segundos_2 = 200000;
+        const videoContainer = document.getElementById('video-container');
+        const videoElement = document.getElementById('step-video');
+        const videoSource = document.getElementById('video-source');
+
+        function hideVideo() {
+            videoContainer.style.opacity = 0;
+            videoElement.pause();
+            videoElement.style.display = 'none';
+            videoSource.src = '';
+        }
+
+        function fetchValue() {
+            fetch('/get_random_value')
+                .then(response => response.json())
+                .then(data => {
+                    // Update displays
+                    document.getElementById('main-display').textContent = `${data.valores}`;
+                    document.getElementById('main-display').style.opacity = 1;
+                    
+                    document.getElementById('top-left').textContent = `Simetrico: ${data.difficulty}`;
+                    document.getElementById('top-right').textContent = `Tiempo: ${data.type}`;
+                    document.getElementById('bottom-center').textContent = `Tipo de conteo: ${data.count}`;
+
+                    // Handle video
+                    if(data.videos !== "ninguno") {
+                        videoSource.src = `/static/videos/${data.videos}`;
+                        videoElement.load();
+                        videoElement.style.display = 'block';
+                        videoContainer.style.opacity = 1;
+                        videoElement.play().catch(error => console.log('Autoplay blocked'));
+                    } else {
+                        // Hide video container if no video
+                        videoElement.style.display = 'none';
+                        videoSource.src = '';
+                        videoContainer.style.opacity = 0;}
+
+                    // Fade in
+                    document.querySelectorAll('.corner-display, #main-display, #video-container').forEach(el => {
+                        el.style.opacity = 1;
+                    });
+
+                    setTimeout(() => {
+                        document.querySelectorAll('.corner-display, #main-display, #video-container').forEach(el => {
+                            el.style.opacity = 0;
+                        });
+                    }, segundos_2);
+                });
+        }
+
+        function fetchCombination() {
+            hideVideo(); // Immediately hide video
+            
+            fetch('/combinacion_steps')
+                .then(response => response.json())
+                .then(data => {
+                    // Update displays
+                    document.getElementById('main-display').textContent = `${data.steps}`;
+                    document.getElementById('main-display').style.opacity = 1;
+                    
+                    document.getElementById('top-left').textContent = `Simetrico: ${data.Simetria}`;
+                    document.getElementById('top-right').textContent = `Tiempo: ${data.Tiempo}`;
+                    document.getElementById('bottom-center').textContent = `Tipo: ${data.count}`;
+
+                    // Fade in (without video)
+                    document.querySelectorAll('.corner-display, #main-display').forEach(el => {
+                        el.style.opacity = 1;
+                    });
+
+                    setTimeout(() => {
+                        document.querySelectorAll('.corner-display, #main-display').forEach(el => {
+                            el.style.opacity = 0;
+                        });
+                    }, segundos_2);
+                });
+        }
+
+        function startAutoRefresh() {
+            if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+            fetchValue();
+            autoRefreshInterval = setInterval(fetchValue, segundos);
+        }
+
+        function startAutoRefresh_2() {
+            if (autoRefreshInterval) clearInterval(autoRefreshInterval);
+            hideVideo(); // Ensure video is hidden
+            fetchCombination();
+            autoRefreshInterval = setInterval(fetchCombination, segundos);
+        }
+    </script>
+</body>
+</html>

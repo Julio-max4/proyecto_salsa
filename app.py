@@ -21,7 +21,8 @@ def get_random_value():
         'difficulty': str(random_row['Simetria']),  # assuming you have this column
         'count': str(random_row['Conteo']),            # assuming you have this column
         'type': str(random_row['Tiempo']),              # assuming you have this column
-        'message': "Paso a realizar"
+        'message': "Paso a realizar",
+        'videos': 'video_japon.mp4'
     })
 
 @app.route('/combinacion_steps')

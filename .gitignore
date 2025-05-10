@@ -1,3 +1,4 @@
 local_python/
 cache/
 env/
+videos/*.mp4

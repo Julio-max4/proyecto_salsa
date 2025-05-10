@@ -84,7 +84,7 @@
     </style>
 </head>
 <body>
-    <button onclick="startAutoRefresh()">✨ Start Salsa Magic! ✨</button>
+    <button onclick="startAutoRefresh()">✨ Paso de Salsa! ✨</button>
     <div id="main-display"></div>
     
     <div class="corner-display" id="top-left"></div>
@@ -103,9 +103,9 @@
                     document.getElementById('main-display').style.opacity = 1;
 
                     // Update corner displays
-                    document.getElementById('top-left').textContent = `Difficulty: ${data.difficulty}`;
-                    document.getElementById('top-right').textContent = `Style: ${data.type}`;
-                    document.getElementById('bottom-center').textContent = `Count: ${data.count}`;
+                    document.getElementById('top-left').textContent = `Simetrico: ${data.difficulty}`;
+                    document.getElementById('top-right').textContent = `Tiempo: ${data.type}`;
+                    document.getElementById('bottom-center').textContent = `Tipo de conteo: ${data.count}`;
 
                     // Fade in all elements
                     document.querySelectorAll('.corner-display, #main-display').forEach(el => {

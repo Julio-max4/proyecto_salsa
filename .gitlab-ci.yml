@@ -10,4 +10,4 @@ sync_to_github:
     - git push github --all
     - git push github --tags
   only:
-    - main   # change this if your main branch has a different name
+    - dev   # change this if your main branch has a different name

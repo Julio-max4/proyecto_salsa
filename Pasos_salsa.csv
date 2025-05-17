@@ -1,0 +1,49 @@
+﻿Nivel,steps,Conteo,Simetria,Tiempo
+Fundamentos,Primera posicion,Conteo regular,TRUE,8
+Fundamentos,Segunda posicion,Conteo regular,TRUE,8
+Fundamentos,Tercera posicion ,Conteo regular,TRUE,8
+Fundamentos,Basico,Conteo regular,TRUE,8
+Fundamentos,Media vuelta derecha,Conteo regular,TRUE,8
+Fundamentos,Media vuelta izquierda,Conteo regular,TRUE,8
+Fundamentos,Susy Q,Conteo regular,TRUE,8
+Fundamentos,cross over,Conteo regular,TRUE,8
+Fundamentos,cross double tap ,Conteo regular,TRUE,8
+Fundamentos,lean back,Conteo regular,TRUE,8
+Fundamentos,Double front tap,Conteo regular,FALSE,8
+Fundamentos,Circle twist step ,Conteo regular,FALSE,8
+Fundamentos,swivel,Conteo regular,TRUE,8
+Fundamentos,Pivot step ,Conteo regular,TRUE,8
+Fundamentos,vuelta derecha ,Conteo regular,FALSE,8
+Fundamentos,vuelta izquierda,Conteo regular,FALSE,8
+BASICO 1,Bounce step,Conteo bajo,FALSE,8
+BASICO 1,Pachanga basic ,Conteo bajo,TRUE,8
+BASICO 1,Gallop step,Conteo bajo,FALSE,8
+BASICO 1,Walk slave step ,Conteo bajo,TRUE,8
+BASICO 1,Torso Basic ,Conteo regular,TRUE,16
+BASICO 1,Zigzag ,Conteo regular,FALSE,16
+BASICO 1,jumping the rope ,Conteo regular,FALSE,8
+BASICO 1,Susy Q/cross over,Conteo regular,FALSE,8
+BASICO 1,Four cornerns (clappin contratiempo),Conteo completo,FALSE,16
+BASICO 1,Mambo step ,Conteo completo,FALSE,8
+BASICO 1,Uptown downtown ,Conteo completo,TRUE,16
+BASICO 1,Full side step tap step,Conteo completo,TRUE,16
+BASICO 1,3-2 clave clap,Conteo sincopado,FALSE,8
+BASICO 1,16 beats triangle crosses ,Conteo sincopado,FALSE,8
+BASICO 1,susy Q Fw. 1/3 5/7,Conteo sincopado,FALSE,8
+BASICO 1,4 Diagonales crosses turning to the right at 7,Conteo sincopado,FALSE,8
+BASICO 2,Side walk step,Conteo bajo,TRUE,16
+BASICO 2,Pachanga half circles,Conteo bajo,,
+BASICO 2,V-step (single version),Conteo bajo,,
+BASICO 2,Cross over tap,Conteo bajo,,
+BASICO 2,Half basic_/multitap,Conteo regular,FALSE,8
+BASICO 2,Puerto Rico basic,Conteo regular,,
+BASICO 2,,Conteo regular,,
+BASICO 2,,Conteo regular,,
+BASICO 2,Full susy Q cross ,Conteo completo,FALSE,16
+BASICO 2,Spiral ,Conteo completo,,
+BASICO 2,Toe heel toe step ,Conteo completo,TRUE,8
+BASICO 2,Mambo jazz,Conteo completo,,
+BASICO 2,Snacking the heels 1/2 3/4…,Conteo sincopado,,
+BASICO 2,Kick the ball 1/2 5/6 …1/ 3/4…,Conteo sincopado,FALSE,16
+BASICO 2,,Conteo sincopado,,
+BASICO 2,pas de bourree,Conteo sincopado,TRUE,8

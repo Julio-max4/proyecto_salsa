@@ -4,8 +4,10 @@ services:
     env: python
     branch: dev # Rama de GitLab
     buildCommand: |
-      python3 -m pip install --upgrade pip setuptools wheel
-      pip install -r requirements.txt
+      export CARGO_HOME=/tmp/cargo
+      export RUSTUP_HOME=/tmp/rustup
+      pip install --upgrade pip
+      pip install --prefer-binary -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
     plan: starter                        # O el plan que prefieras
     envVars:

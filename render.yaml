@@ -7,6 +7,9 @@ services:
       export CARGO_HOME=/tmp/cargo
       export RUSTUP_HOME=/tmp/rustup
       pip install --upgrade pip
+      pip install --prefer-binary cffi==1.17.1
+      pip install --prefer-binary argon2-cffi==23.1.0
+      pip install --prefer-binary argon2-cffi-bindings==21.2.0
       pip install --prefer-binary rpds-py==0.10.6
       pip install --prefer-binary -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT

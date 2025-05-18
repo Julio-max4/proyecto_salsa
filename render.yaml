@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: app                  # Cambia a tu nombre
+    env: python
+    branch: dev # Rama de GitLab
+    buildCommand: |
+      python3 -m pip install --upgrade pip setuptools wheel
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    plan: starter                        # O el plan que prefieras
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11.11                   # Tu versión

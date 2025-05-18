@@ -1,0 +1,22 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: python:3.11.11
+  script:
+    - python3 -m pip install --upgrade pip setuptools wheel
+    - pip install -r requirements.txt
+
+deploy:
+  stage: deploy
+  image: python:3.11.11
+  variables:
+    RENDER_SERVICE_ID: "$RENDER_SERVICE_ID"
+    RENDER_API_KEY: "$RENDER_API_KEY"
+  script:
+    - python3 -m pip install render-cli
+    - render deploy --service $RENDER_SERVICE_ID --api-key $RENDER_API_KEY
+  only:
+    - dev
